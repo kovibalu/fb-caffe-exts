@@ -224,6 +224,7 @@ M.CONVERTER = {
             layer["operation"] = "AVE"
             return layer
         end},
+	['nn.SpatialAdaptiveMaxPooling'] = simple{typename='caffe.SPP'}
     ['nn.Dropout'] = simple{typename='caffe.Dropout', inplace=true},
     ['nn.View'] = simple{
         typename='caffe.Flatten',

@@ -168,6 +168,16 @@ def pooling(torch_layer):
     return layer
 
 
+def adaptive_pooling(torch_layer):
+    layer = pb2.LayerParameter()
+    layer.type = "SPP"
+    # Only max pooling is implemented in torch at the moment
+    layer.spp_param.pool = pb2.SPPParameter.MAX
+    layer.spp_param.pyramid_height = 0
+
+    return layer
+
+
 def dropout(torch_layer):
     # Only run dropout
     layer = pb2.LayerParameter()
@@ -262,6 +272,7 @@ def build_converter(opts):
         'caffe.TemporalConvolution': temporal_convolution,
         'caffe.SpatialConvolution': spatial_convolution,
         'caffe.Pooling': pooling,
+        'caffe.SPP': adaptive_pooling,
         'caffe.Dropout': dropout,
         'caffe.Flatten': ty('Flatten'),
         'caffe.FBThreshold': fbthreshold,
